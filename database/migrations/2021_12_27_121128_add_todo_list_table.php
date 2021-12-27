@@ -18,6 +18,7 @@ class AddTodoListTable extends Migration
             $table->string('details');
             $table->integer('priority');
             $table->foreignId('users_id')->constrained();
+            $table->timestamps();
         });
     }
 

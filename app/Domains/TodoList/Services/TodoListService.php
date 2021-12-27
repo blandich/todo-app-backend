@@ -7,6 +7,7 @@ namespace LawAdvisor\Domains\TodoList\Services;
 use LawAdvisor\Common\Interfaces\FractalServiceInterface;
 use LawAdvisor\Common\Interfaces\PaginatorServiceInterface;
 use LawAdvisor\Domains\TodoList\DTOs\TodoListIndexDTO;
+use LawAdvisor\Domains\TodoList\DTOs\TodoListStoreDTO;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListRepositoryInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListTransformerInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListServiceInterface;
@@ -52,5 +53,15 @@ class TodoListService implements TodoListServiceInterface
             $dto->getPaginatorDTO(),
             $this->fractal
         );
+    }
+
+    public function addTask(int $user_id, TodoListStoreDTO $dto): array
+    {
+
+        $todo = $this->repository->addTasktoList($user_id,
+            $dto->getDetails(),
+        );
+
+        return $this->fractal->transformModel($todo);
     }
 }

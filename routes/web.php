@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\DB;
 
 $router->group(['prefix' => '/todolist', 'namespace' => '\LawAdvisor\Domains\TodoList\Controllers'], function () use ($router) {
     $router->get('/', ['uses' => 'TodoListController@index']);
+    $router->post('/', ['uses' => 'TodoListController@store']);
 });
