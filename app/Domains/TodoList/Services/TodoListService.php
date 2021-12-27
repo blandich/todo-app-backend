@@ -11,6 +11,7 @@ use LawAdvisor\Domains\TodoList\DTOs\TodoListStoreDTO;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListRepositoryInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListTransformerInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListServiceInterface;
+use LawAdvisor\Domains\TodoList\Interfaces\TodoInterface;
 
 class TodoListService implements TodoListServiceInterface
 {
@@ -62,6 +63,11 @@ class TodoListService implements TodoListServiceInterface
             $dto->getDetails(),
         );
 
+        return $this->fractal->transformModel($todo);
+    }
+
+    public function retrieveTask(TodoInterface $todo): array
+    {
         return $this->fractal->transformModel($todo);
     }
 }

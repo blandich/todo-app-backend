@@ -13,6 +13,7 @@ use LawAdvisor\Domains\TodoList\Validators\TodoListStoreValidator;
 use LawAdvisor\Domains\TodoList\DTOs\TodoListStoreDTO;
 use LawAdvisor\Domains\TodoList\DTOs\TodoListIndexDTO;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListServiceInterface;
+use LawAdvisor\Domains\TodoList\Interfaces\TodoInterface;
 
 class TodoListController extends Controller
 {
@@ -63,5 +64,20 @@ class TodoListController extends Controller
         $response = $this->service->addTask(1, $dto);
 
         return new JsonResponse($response, JsonResponse::HTTP_CREATED);
+    }
+
+    /**
+     * Retrieve single task.
+     *
+     * @param \LawAdvisor\Domains\TodoList\Interfaces\TodoInterface $todo
+     * @param \Illuminate\Http\Request                            $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function retrieve(TodoInterface $todo): JsonResponse
+    {
+        $response = $this->service->retrieveTask($todo);
+
+        return new JsonResponse($response, JsonResponse::HTTP_OK);
     }
 }

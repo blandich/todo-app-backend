@@ -92,6 +92,7 @@ $app->configure('app');
 */
 
 $app->register(LawAdvisor\Providers\AppServiceProvider::class);
+$app->register(LawAdvisor\Providers\RouteBindingServiceProvider::class);
 $app->register(LawAdvisor\Domains\TodoList\Providers\TodoListServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);

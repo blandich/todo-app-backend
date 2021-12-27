@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TerpApi\Providers;
+namespace LawAdvisor\Providers;
 
 use mmghv\LumenRouteBinding\RouteBindingServiceProvider as BaseServiceProvider;
 use LawAdvisor\Domains\TodoList\Exceptions\TodoNotFoundException;

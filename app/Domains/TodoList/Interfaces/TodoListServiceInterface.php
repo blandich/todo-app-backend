@@ -6,6 +6,7 @@ namespace LawAdvisor\Domains\TodoList\Interfaces;
 
 use LawAdvisor\Domains\TodoList\DTOs\TodoListIndexDTO;
 use LawAdvisor\Domains\TodoList\DTOs\TodoListStoreDTO;
+use LawAdvisor\Domains\TodoList\Interfaces\TodoInterface;
 
 interface TodoListServiceInterface
 {
@@ -24,4 +25,11 @@ interface TodoListServiceInterface
      * @return array Transformed task data
      */
     public function addTask(int $user_id, TodoListStoreDTO $dto): array;
+
+    /**
+     * Retrieve Single Task
+     *
+     * @return array Transformed task data
+     */
+    public function retrieveTask(TodoInterface $todo): array;
 }

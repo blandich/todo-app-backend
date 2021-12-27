@@ -7,7 +7,8 @@
     "require": {
         "php": "^7.3|^8.0",
         "laravel/lumen-framework": "^8.3.1",
-        "league/fractal": "^0.19.2"
+        "league/fractal": "^0.19.2",
+        "mmghv/lumen-route-binding": "^1.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
