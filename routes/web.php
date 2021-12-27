@@ -20,5 +20,6 @@ $router->group(['prefix' => '/todolist', 'namespace' => '\LawAdvisor\Domains\Tod
     $router->post('/', ['uses' => 'TodoListController@store']);
     $router->group(['prefix' => '/{todo}'], function () use ($router) {
         $router->get('/', ['uses' => 'TodoListController@retrieve']);
+        $router->delete('/', ['uses' => 'TodoListController@delete']);
     });
 });

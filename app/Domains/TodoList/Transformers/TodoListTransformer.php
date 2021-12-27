@@ -13,6 +13,7 @@ class TodoListTransformer extends TransformerAbstract implements TodoListTransfo
     public function transform(ModelInterface $model): array
     {
         return [
+            'id'           => $model->id,
             'priority'     => $model->priority,
             'details'      => $model->details,
         ];

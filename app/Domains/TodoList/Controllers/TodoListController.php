@@ -80,4 +80,23 @@ class TodoListController extends Controller
 
         return new JsonResponse($response, JsonResponse::HTTP_OK);
     }
+
+    /**
+     * Delete single task.
+     *
+     * @param \LawAdvisor\Domains\TodoList\Interfaces\TodoInterface $todo
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(TodoInterface $todo): JsonResponse
+    {
+        $result = $this->service->deleteTask($todo);
+
+        if ($result) {
+            return new JsonResponse(['error' => $result], JsonResponse::HTTP_CONFLICT);
+        }
+
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+    }
+
 }

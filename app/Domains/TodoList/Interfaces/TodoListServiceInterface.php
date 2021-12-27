@@ -32,4 +32,11 @@ interface TodoListServiceInterface
      * @return array Transformed task data
      */
     public function retrieveTask(TodoInterface $todo): array;
+
+    /**
+     * Delete Single Task
+     *
+     * @return array Transformed task data
+     */
+    public function deleteTask(TodoInterface $todo): ?string;
 }

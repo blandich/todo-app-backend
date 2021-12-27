@@ -12,6 +12,7 @@ use LawAdvisor\Domains\TodoList\Interfaces\TodoListRepositoryInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListTransformerInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListServiceInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoInterface;
+use LawAdvisor\Domains\TodoList\Models\Todo;
 
 class TodoListService implements TodoListServiceInterface
 {
@@ -70,4 +71,21 @@ class TodoListService implements TodoListServiceInterface
     {
         return $this->fractal->transformModel($todo);
     }
+
+    public function deleteTask(TodoInterface $todo): ?string
+    {
+        $tasks = Todo::where('users_id', $todo->users_id)->get()->sortBy('priority');
+        $priorities = $tasks->pluck('priority')->toArray();
+        if ($todo->priority < max($priorities)) {
+            for($i=array_search($todo->priority, $priorities) + 1; $i <= count($tasks); $i++) {
+                $task = Todo::where('users_id', $todo->users_id)->where('priority', $i)->first();
+                $task->priority = $task->priority - 1;
+                $task->save();
+            }
+        }
+        $todo->delete();
+
+        return null;
+    }
+
 }
