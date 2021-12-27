@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use Illuminate\Support\Facades\DB;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,6 +15,6 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => '/todolist', 'namespace' => '\LawAdvisor\Domains\TodoList\Controllers'], function () use ($router) {
+    $router->get('/', ['uses' => 'TodoListController@index']);
 });

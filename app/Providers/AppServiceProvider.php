@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace LawAdvisor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('LawAdvisor\Common\Interfaces\FractalServiceInterface', 'LawAdvisor\Common\Services\FractalService');
+        $this->app->bind('LawAdvisor\Common\Interfaces\PaginatorServiceInterface', 'LawAdvisor\Common\Services\PaginatorService');
     }
 }
