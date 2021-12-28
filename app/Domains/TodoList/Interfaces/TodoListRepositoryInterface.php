@@ -31,4 +31,6 @@ interface TodoListRepositoryInterface extends RepositoryInterface
      * @return \LawAdvisor\Domains\TodoList\Models\Todo;
      */
     public function addTaskToList(int $user_id, string $details): Todo;
+
+    public function updateTaskFromList(int $id, int $user_id, string $details = null, int $prevPriority = null, int $priority = null): ?string;
 }

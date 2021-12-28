@@ -10,8 +10,10 @@ use LawAdvisor\Base\Controllers\Controller;
 use LawAdvisor\Common\Validators\PaginatorValidator;
 use LawAdvisor\Domains\TodoList\Validators\TodoListIndexValidator;
 use LawAdvisor\Domains\TodoList\Validators\TodoListStoreValidator;
+use LawAdvisor\Domains\TodoList\Validators\TodoListUpdateValidator;
 use LawAdvisor\Domains\TodoList\DTOs\TodoListStoreDTO;
 use LawAdvisor\Domains\TodoList\DTOs\TodoListIndexDTO;
+use LawAdvisor\Domains\TodoList\DTOs\TodoListUpdateDTO;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListServiceInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoInterface;
 
@@ -91,6 +93,28 @@ class TodoListController extends Controller
     public function delete(TodoInterface $todo): JsonResponse
     {
         $result = $this->service->deleteTask($todo);
+
+        if ($result) {
+            return new JsonResponse(['error' => $result], JsonResponse::HTTP_CONFLICT);
+        }
+
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Update single task.
+     *
+     * @param \TerpApi\Domains\TodoList\Interfaces\TodoInterface $todo
+     * @param \Illuminate\Http\Request                            $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(TodoInterface $todo, Request $request): JsonResponse
+    {
+        $this->validate($request, TodoListUpdateValidator::rules());
+
+        $dto = new TodoListUpdateDTO($request);
+        $result = $this->service->updateTask($todo, $dto);
 
         if ($result) {
             return new JsonResponse(['error' => $result], JsonResponse::HTTP_CONFLICT);

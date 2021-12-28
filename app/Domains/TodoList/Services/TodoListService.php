@@ -8,6 +8,7 @@ use LawAdvisor\Common\Interfaces\FractalServiceInterface;
 use LawAdvisor\Common\Interfaces\PaginatorServiceInterface;
 use LawAdvisor\Domains\TodoList\DTOs\TodoListIndexDTO;
 use LawAdvisor\Domains\TodoList\DTOs\TodoListStoreDTO;
+use LawAdvisor\Domains\TodoList\DTOs\TodoListUpdateDTO;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListRepositoryInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListTransformerInterface;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoListServiceInterface;
@@ -86,6 +87,19 @@ class TodoListService implements TodoListServiceInterface
         $todo->delete();
 
         return null;
+    }
+
+    public function updateTask(TodoInterface $todo, TodoListUpdateDTO $dto): ?string
+    {
+        $task = $this->repository->updateTaskFromList(
+            $todo->id,
+            $todo->users_id,
+            $dto->getDetails() ? $dto->getDetails() : null,
+            $dto->getPriority() ? $todo->priority : null,
+            $dto->getPriority() ? $dto->getPriority() : null,
+        );
+
+        return $task;
     }
 
 }

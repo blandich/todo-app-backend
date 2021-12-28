@@ -37,4 +37,43 @@ class TodoListRepository implements TodoListRepositoryInterface
 
         return $this->model;
     }
+
+    public function updateTaskFromList(int $id, int $user_id, string $details = null, int $prevPriority = null, int $priority = null): ?string
+    {
+        $task = $this->model->where('id', $id)->first();
+        if (!is_null($details)) {
+            $task->details = $details;
+            $task->save();
+        }
+        if (!is_null($priority)) {
+            $tasks = Todo::where('users_id', $user_id)->get()->sortBy('priority');
+            dd($tasks);
+            $priorities = $tasks->pluck('priority')->toArray();
+            if ($priority > max($priorities)) {
+                return 'Requested priority exceeded the maximum number of existing task';
+            }
+            elseif ($priority === $prevPriority) {
+                return 'Please choose a different priority number';
+            }
+            else {
+                if ($priority > $prevPriority) {
+                    for($i=array_search($prevPriority, $priorities) + 2; $i <= $priority; $i++) {
+                        $taskNode = Todo::where('users_id', $user_id)->where('priority', $i)->first();
+                        $taskNode->priority = $taskNode->priority - 1;
+                        $taskNode->save();
+                    }
+                }
+                else {
+                    for($i=$priority; $i < $prevPriority; $i++) {
+                        $taskNode = Todo::where('users_id', $user_id)->where('priority', $i)->first();
+                        $taskNode->priority = $taskNode->priority + 1;
+                        $taskNode->save();
+                    }
+                }
+            }
+            $task = Todo::find($id)->update(['priority' => $priority]);
+        }
+
+        return null;
+    }
 }

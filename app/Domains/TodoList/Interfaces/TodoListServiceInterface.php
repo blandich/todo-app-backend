@@ -6,6 +6,7 @@ namespace LawAdvisor\Domains\TodoList\Interfaces;
 
 use LawAdvisor\Domains\TodoList\DTOs\TodoListIndexDTO;
 use LawAdvisor\Domains\TodoList\DTOs\TodoListStoreDTO;
+use LawAdvisor\Domains\TodoList\DTOs\TodoListUpdateDTO;
 use LawAdvisor\Domains\TodoList\Interfaces\TodoInterface;
 
 interface TodoListServiceInterface
@@ -39,4 +40,11 @@ interface TodoListServiceInterface
      * @return array Transformed task data
      */
     public function deleteTask(TodoInterface $todo): ?string;
+
+    /**
+     * Update Single Task
+     *
+     * @return void
+     */
+    public function updateTask(TodoInterface $todo, TodoListUpdateDTO $dto): ?string;
 }
