@@ -6,7 +6,10 @@
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
+        "dusterio/lumen-passport": "^0.3.4",
+        "guzzlehttp/guzzle": "^7.4",
         "laravel/lumen-framework": "^8.3.1",
+        "laravel/passport": "^10.2",
         "league/fractal": "^0.19.2",
         "mmghv/lumen-route-binding": "^1.5"
     },

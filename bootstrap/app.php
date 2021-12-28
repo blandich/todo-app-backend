@@ -76,9 +76,10 @@ $app->configure('app');
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -94,8 +95,11 @@ $app->configure('app');
 $app->register(LawAdvisor\Providers\AppServiceProvider::class);
 $app->register(LawAdvisor\Providers\RouteBindingServiceProvider::class);
 $app->register(LawAdvisor\Domains\TodoList\Providers\TodoListServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Laravel\Passport\PassportServiceProvider::class);
+$app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
+$app->configure('auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +111,8 @@ $app->register(LawAdvisor\Domains\TodoList\Providers\TodoListServiceProvider::cl
 | can respond to, as well as the controllers that may handle them.
 |
 */
+
+\Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => 'api/v1/oauth']);
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

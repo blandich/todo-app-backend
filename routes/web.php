@@ -14,13 +14,19 @@ use Illuminate\Support\Facades\DB;
 | and give it the Closure to call when that URI is requested.
 |
 */
-
-$router->group(['prefix' => '/todolist', 'namespace' => '\LawAdvisor\Domains\TodoList\Controllers'], function () use ($router) {
-    $router->get('/', ['uses' => 'TodoListController@index']);
-    $router->post('/', ['uses' => 'TodoListController@store']);
-    $router->group(['prefix' => '/{todo}'], function () use ($router) {
-        $router->get('/', ['uses' => 'TodoListController@retrieve']);
-        $router->delete('/', ['uses' => 'TodoListController@delete']);
-        $router->patch('/', ['uses' => 'TodoListController@update']);
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->group(['prefix' => '/todolist', 'namespace' => '\LawAdvisor\Domains\TodoList\Controllers'], function () use ($router) {
+        $router->get('/', ['uses' => 'TodoListController@index']);
+        $router->post('/', ['uses' => 'TodoListController@store']);
+        $router->group(['prefix' => '/{todo}'], function () use ($router) {
+            $router->get('/', ['uses' => 'TodoListController@retrieve']);
+            $router->delete('/', ['uses' => 'TodoListController@delete']);
+            $router->patch('/', ['uses' => 'TodoListController@update']);
+        });
     });
+});
+
+$router->group(['/', 'namespace' => '\LawAdvisor\Domains\Users\Controllers'], function () use ($router) {
+    $router->post('/register','UsersController@register');
+    $router->post('/login','UsersController@login');
 });

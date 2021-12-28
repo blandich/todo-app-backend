@@ -104,7 +104,7 @@ class TodoListController extends Controller
     /**
      * Update single task.
      *
-     * @param \TerpApi\Domains\TodoList\Interfaces\TodoInterface $todo
+     * @param \LawAdvisor\Domains\TodoList\Interfaces\TodoInterface $todo
      * @param \Illuminate\Http\Request                            $request
      *
      * @return \Illuminate\Http\JsonResponse
